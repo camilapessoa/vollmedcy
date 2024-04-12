@@ -1,11 +1,12 @@
 describe('testes em API', () => {
     context('Testes em rotas com usuário autorizado', () => {
-        beforeEach(() => {
-            cy.log("--------->>>>>>>>",cy.loginApi(Cypress.env('email'), Cypress.env('senha')))
-            cy.loginApi(Cypress.env('email'), Cypress.env('senha'))
+        // beforeEach(() => {
+        //     console.log("--------->>>>>>>>", cy.loginApi(Cypress.env('email'), Cypress.env('senha')))
+        //     cy.loginApi(Cypress.env('email'), Cypress.env('senha'))
 
-        })
+        // })
         it('GET via url front para teste em resposta da home', () => {
+            cy.loginApi(Cypress.env('email'), Cypress.env('senha'))
             cy.request('GET', '/').should((response) => {
                 expect(response.status).to.eq(200)
             })
