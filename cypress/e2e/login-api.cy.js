@@ -1,13 +1,13 @@
 describe('testes em API', () => {
     context('Testes em rotas com usuário autorizado', () => {
-        // beforeEach(() => {
-        //     console.log("--------->>>>>>>>", cy.loginApi(Cypress.env('email'), Cypress.env('senha')))
-        //     cy.loginApi(Cypress.env('email'), Cypress.env('senha'))
-
-        // })
-        it('GET via url front para teste em resposta da home', () => {
+        beforeEach(() => {
             cy.loginApi(Cypress.env('email'), Cypress.env('senha'))
-            cy.request('GET', '/').should((response) => {
+
+        })
+        it('GET via url front para teste em resposta da home', () => {
+            cy.request('GET', '/', { email: "clinica@gmail.com", senha: 4321 
+
+            }).should((response) => {
                 expect(response.status).to.eq(200)
             })
         })
