@@ -5,6 +5,3 @@ build/
 tmp/
 .env
 temp/
-db_data/
-database/
-mysql
