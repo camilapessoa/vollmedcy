@@ -52,7 +52,7 @@ jobs:
         with:
           browser: chrome
           wait-on: 'http://localhost:8080'
-          wait-on-timeout: 180
+          # wait-on-timeout: 180
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
