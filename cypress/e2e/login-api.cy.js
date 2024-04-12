@@ -1,6 +1,7 @@
 describe('testes em API', () => {
     context('Testes em rotas com usuário autorizado', () => {
         beforeEach(() => {
+            cy.log("--------->>>>>>>>",cy.loginApi(Cypress.env('email'), Cypress.env('senha')))
             cy.loginApi(Cypress.env('email'), Cypress.env('senha'))
 
         })
