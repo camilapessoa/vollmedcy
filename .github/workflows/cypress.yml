@@ -17,16 +17,16 @@ jobs:
       - name: Install Dependencies
         run: npm install
       
-      - name: Show DB_ENV
-        run: |
-         echo 'DB_ENV: ${{ secrets.DB_ENV }}' > .env
+      # - name: Show DB_ENV
+      #   run: |
+      #    echo 'DB_ENV: ${{ secrets.DB_ENV }}' > .env
       
       - name: Start Server BackEnd
         run: |
           cd server
-          docker-compose up -d
           npm install 
           nohup npm start &
+            
         # run: |
         #   cd server
         #   docker-compose up -d
@@ -51,6 +51,8 @@ jobs:
 
         with:
           browser: chrome
+          wait-on: 'http://localhost:8080'
+          wait-on-timeout: 180
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
