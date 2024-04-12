@@ -18,16 +18,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.19.0'
-
+      - name: Show DB_ENV
+        run: |
+           echo 'DB_ENV: ${{ secrets.DB_ENV }}' > .env
       - name: Install Dependencies
         run: npm install
-      
       - name: Start Server BackEnd
         run: |
           cd server
           npm install 
           nohup npm start &
-        
+      
       - name: Start Web App FrontEnd
         run: |
           cd web

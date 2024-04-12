@@ -25,7 +25,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       }
 
       //process.env.SECRET
-      const token = jwt.sign({ id, role }, 'segredo', {
+      const token = jwt.sign({ id, role }, process.env.SECRET, {
         expiresIn: 86400
       }) // expira em 24 horas
 
