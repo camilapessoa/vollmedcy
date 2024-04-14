@@ -22,6 +22,9 @@ describe('testes em API', () => {
         // beforeEach(() => {
         //     cy.loginApi(Cypress.env('email'), Cypress.env('senha'))
         // })
+        it('Login', ()=>{
+            cy.loginApi('clinica@gmail.com','4321')
+        })
 
         it('Requisição incorreta em criação de especialista', () => {
             cy.loginApi(Cypress.env('email'), Cypress.env('senha')).then(() => {
