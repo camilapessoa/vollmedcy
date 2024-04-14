@@ -45,6 +45,8 @@ jobs:
     steps:
       - name: Checkout
         uses: cypress-io/github-action@v6
+        with:
+            wait-on: 'http://localhost:3000, http://localhost:8080'
 
       - name: Instalar Cypress
         run: npm install cypress
