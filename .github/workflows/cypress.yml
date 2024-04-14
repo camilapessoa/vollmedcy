@@ -22,7 +22,8 @@ jobs:
 
       - name: Iniciar Servidor 
         run: |
-          npm start & 
+          npm start &
+        working-directory: server 
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,7 +34,8 @@ jobs:
 
       - name: Iniciar Cliente 
         run: |
-          npm start & 
+          npm start &
+        working-directory: web 
 
   wait-for-services:
     runs-on: ubuntu-latest
