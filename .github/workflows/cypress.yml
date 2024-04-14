@@ -8,20 +8,20 @@ on:
 jobs:
   start-server:
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    # timeout-minutes: 2
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
       - name: Instalar Dependências - Servidor
-        run: npm install
+        run: npm install 
         working-directory: server
 
       - name: Configurar Variável de Ambiente
         run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
 
       - name: Iniciar Servidor 
-        run: npm start
+        run: npm start &
         working-directory: server 
 
   start-client:
@@ -36,7 +36,7 @@ jobs:
         working-directory: web
 
       - name: Iniciar Cliente 
-        run: npm start
+        run: npm start &
         working-directory: web
         
   run-tests:
