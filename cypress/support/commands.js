@@ -30,7 +30,6 @@ Cypress.Commands.add('cadastraEspecialista', (nome, email, senha, especialidade,
 })
 
 Cypress.Commands.add('loginApi',(email, senha)=>{
-  cy.log("----->>>>>>",email, senha)
     cy.request({
         method: 'POST',
         url: Cypress.env('api_login'),
@@ -47,6 +46,6 @@ Cypress.Commands.add('loginApi',(email, senha)=>{
         expect(response.body.token).to.exist;
         cy.wrap(response.body.token).as('token');
   
-    })
+    }).debug()
 
 })
