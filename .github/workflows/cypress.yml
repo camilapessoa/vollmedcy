@@ -9,15 +9,13 @@ jobs:
   wait-for-services:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-    #   - name: Wait for Server and Client
-    #     run: |
-    #       until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)" == "200" ] && [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)" == "200" ]; do
-    #         echo "Waiting for services to be ready..."
-    #         sleep 1
-    #       done
-    #       echo "Services are ready."
+      - name: Wait for Server and Client
+        run: |
+          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)" == "200" ] && [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)" == "200" ]; do
+            echo "Waiting for services to be ready..."
+            sleep 1
+          done
+          echo "Services are ready."
 
   start-server:
     runs-on: ubuntu-latest
@@ -35,7 +33,7 @@ jobs:
           echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
           
       - name: Start Server
-        run: npm start &
+        run: npm start
         working-directory: server
 
   start-web-client:
@@ -50,7 +48,7 @@ jobs:
         working-directory: web
             
       - name: Start Web Client
-        run: npm start &
+        run: npm start
         working-directory: web
 
   run-tests:
