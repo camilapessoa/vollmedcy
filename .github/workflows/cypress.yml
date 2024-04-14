@@ -1,69 +1,26 @@
-name: Cypress Tests
-
-on:
+name: With servers
+on: 
   push:
     branches:
       - testes-cy
-
 jobs:
-  start-server:
-    runs-on: ubuntu-latest
+  cypress-run:
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install Dependencies - Server
-        run: npm install
-        working-directory: server
-
-      - name: Show DB_ENV
+      - name: Checkout Server and Web
         run: |
-          echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
-          
-      - name: Start Server
-        run: |
+          cd server
+          npm install
           npm start &
-          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)" == "200" ]; do
-            echo "Waiting for server to start..."
-            sleep 1
-          done
-          echo "Server is running successfully."
-        working-directory: server
-
-  start-web-client:
-    runs-on: ubuntu-latest
-    needs: start-server
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-            
-      - name: Install Dependencies - Web
-        run: npm install
-        working-directory: web
-            
-      - name: Start Web Client
-        run: npm start &
-        working-directory: web
-            
-      - name: Check if Web Client is Running
-        run: |
-          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)
-          if [ "$response" == "200" ]; then
-            echo "Web Client is running successfully."
-          else
-            echo "Web Client is not running or responding with an error."
-            exit 1
-          fi
-  run-tests:
-    needs: [start-server, start-web-client]
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Run Cypress Tests
+          cd ../web
+          npm install
+          npm start &
+      - name: Wait for servers to start
+        run: sleep 30s
+      - name: Cypress run
         uses: cypress-io/github-action@v6
-        with:
-          install: true
+       
+
+   
