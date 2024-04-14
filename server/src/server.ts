@@ -52,6 +52,10 @@ app.get('/', (req, res) => {
   res.status(200).send('Vollmed Servidor está rodando!')
 })
 
+app.get('/favicon.ico', (req, res) => {
+  res.status(200).send(`<h1>favicon</h1>`)
+})
+
 rotaPaciente(app)
 rotaEspecialista(app)
 rotaAvaliacoes(app)
