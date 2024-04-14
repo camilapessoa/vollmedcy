@@ -46,6 +46,11 @@ AppDataSource.initialize()
     console.error(error)
   })
 
+// Rota inicial de GET
+app.get('/', (req, res) => {
+  res.send('Vollmed Servidor está rodando!')
+})
+
 rotaPaciente(app)
 rotaEspecialista(app)
 rotaAvaliacoes(app)
