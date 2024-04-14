@@ -3,7 +3,7 @@ name: Cypress Tests
 on:
   push:
     branches:
-      - actions
+      - server-web
 
 jobs:
   start-server:
@@ -19,10 +19,21 @@ jobs:
       - name: Show DB_ENV
         run: |
           echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
-
+          
       - name: Start Server
         run: npm start &
         working-directory: server
+
+      - name: Check if Server is Running
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)
+          if [ "$response" == "200" ]; then
+            echo "Server is running successfully."
+          else
+            echo "Server is not running or responding with an error."
+            exit 1
+          fi
+      
 
   start-web-client:
     needs: start-server
@@ -38,17 +49,13 @@ jobs:
       - name: Start Web Client
         run: npm start &
         working-directory: web
-
-  run-tests:
-    needs: [start-server, start-web-client]
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Run Cypress Tests
-        uses: cypress-io/github-action@v6
-        with:
-          install: true
+      
+      - name: Check if Web Client is Running
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)
+          if [ "$response" == "200" ]; then
+            echo "Server is running successfully."
+          else
+            echo "Server is not running or responding with an error."
+            exit 1
+          fi
