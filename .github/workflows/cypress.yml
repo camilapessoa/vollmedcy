@@ -6,9 +6,9 @@ on:
       - testes-cy
 
 jobs:
-  start-server-and-client:
+  start-server:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 2
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,15 +21,13 @@ jobs:
         run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
 
       - name: Iniciar Servidor 
-        run: |
-          npm start &
-          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)" == "200" ]; do
-            echo "Aguardando o servidor iniciar..."
-            sleep 1
-          done
-          echo "Servidor iniciado com sucesso."
+        run: npm start
         working-directory: server 
 
+  start-client:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
       
@@ -38,29 +36,11 @@ jobs:
         working-directory: web
 
       - name: Iniciar Cliente 
-        run: |
-          npm start &
-          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)" == "200" ]; do
-            echo "Aguardando o cliente iniciar..."
-            sleep 1
-          done
-          echo "Cliente iniciado com sucesso."
+        run: npm start
         working-directory: web
         
-  # wait-for-services:
-  #   runs-on: ubuntu-latest
-  #   needs: start-server-and-client
-  #   steps:
-  #     - name: Aguardar Servidor e Cliente
-  #       run: |
-  #         until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)" == "200" ] && [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)" == "200" ]; do
-  #           echo "Aguardando os serviços ficarem prontos..."
-  #           sleep 1
-  #         done
-  #         echo "Os serviços estão prontos."
-
   run-tests:
-    # needs: wait-for-services
+    needs: [start-server, start-client]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
