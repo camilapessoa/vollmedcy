@@ -3,44 +3,10 @@ name: Cypress Tests
 on:
   push:
     branches:
-      - actions
+      - testes
 
 jobs:
-  start-server:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Dependencies - Server
-        run: npm install
-        working-directory: server
-
-      - name: Show DB_ENV
-        run: |
-          echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
-
-      - name: Start Server
-        run: npm start &
-        working-directory: server
-
-  start-web-client:
-    needs: start-server
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        
-      - name: Install Dependencies - Web
-        run: npm install
-        working-directory: web
-
-      - name: Start Web Client
-        run: npm start &
-        working-directory: web
-
-  run-tests:
-    needs: [start-server, start-web-client]
+  cypress-run:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -48,7 +14,36 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Start Server BackEnd
+        run: |
+           cd server
+           npm install 
+           npm start &
+        env:
+          SERVER_PORT: 8080
+        
+
+      - name: Start Web App FrontEnd
+        run: |
+          cd web
+          npm install
+          npm start &
+
+      - name: Write the cypress.env.json file 📝
+          # use quotes around the secret, as its value
+          # is simply inserted as a string into the command
+        run: |
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
+
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
+
         with:
-          install: true
+          browser: chrome
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+              
