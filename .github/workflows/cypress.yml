@@ -54,21 +54,8 @@ jobs:
             echo "Web Client is not running or responding with an error."
             exit 1
           fi
-      
-  check-server:
-    runs-on: ubuntu-latest
-    needs: start-web-client
-    steps:
-      - name: Wait for Server to Start
-        run: |
-          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)" == "200" ]; do
-            echo "Waiting for server to start..."
-            sleep 1
-          done
-          echo "Server is running successfully."
-
   run-tests:
-    needs: [start-server, start-web-client, check-server]
+    needs: [start-server, start-web-client]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
