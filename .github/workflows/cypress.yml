@@ -8,7 +8,6 @@ on:
 jobs:
   start-server:
     runs-on: ubuntu-latest
-    # timeout-minutes: 2
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,16 +25,13 @@ jobs:
 
   start-client:
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
       - name: Instalar Dependências - Cliente
-        run: |
-            npm install
-            npm install --package-lock
-            
+        run: npm install
         working-directory: web
 
       - name: Iniciar Cliente 
@@ -47,15 +43,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: cypress-io/github-action@v6
-        with:
-            wait-on: 'http://localhost:3000, http://localhost:8080'
+        uses: actions/checkout@v4
+      
+      - name: Instalar Dependências
+        run: npm install
+        working-directory: /home/runner/work/vollmedcy/vollmedcy
 
       - name: Instalar Cypress
         run: npm install cypress
 
       - name: Executar Testes Cypress
         run: npx cypress run
-    
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
