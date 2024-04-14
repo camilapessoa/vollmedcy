@@ -26,21 +26,14 @@ jobs:
 
       - name: Wait for Server to Start
         run: |
-          max_attempts=30
-          attempt=0
-          while [ $attempt -lt $max_attempts ]; do
-            response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)
-            if [ "$response" == "200" ]; then
-              echo "Server is running successfully."
-              exit 0
-            else
-              echo "Server is not running yet. Waiting..."
-              sleep 5
-              ((attempt++))
-            fi
-          done
-          echo "Server did not start within the timeout period."
-          exit 1
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)
+          if [ "$response" == "200" ]; then
+            echo "Server is running successfully."
+          else
+            echo "Server is not running or responding with an error."
+            exit 1
+          fi
+
 
   start-web-client:
     needs: start-server
