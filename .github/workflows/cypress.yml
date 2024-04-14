@@ -42,15 +42,14 @@ jobs:
     needs: [start-server, start-client]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: cypress-io/github-action@v6
-
-        with: 
-            wait-on: 'http://localhost:3000, http://localhost:8080'
-      
       - name: Instalar Dependências
         run: npm install
         working-directory: /home/runner/work/vollmedcy/vollmedcy
+
+      - name: Checkout
+        uses: cypress-io/github-action@v6
+        with: 
+          wait-on: 'http://localhost:3000, http://localhost:8080'
 
       - name: Instalar Cypress
         run: npm install cypress
