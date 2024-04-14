@@ -1,5 +1,5 @@
 {
-   "name": "API-Voll_Med",
+   "name": "api-voll_med",
    "version": "1.0.0",
    "description": "",
    "main": "index.js",
@@ -11,18 +11,7 @@
       "start": "tsc-watch --onSuccess \"node ./build/server.js\"",
       "compile": "npx tsc"
    },
-   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/bugan/API-Voll.Med.git"
-   },
-   "keywords": [],
-   "author": "",
-   "license": "ISC",
-   "bugs": {
-      "url": "https://github.com/bugan/API-Voll.Med/issues"
-   },
-   "homepage": "https://github.com/bugan/API-Voll.Med#readme",
-   "dependencies": {
+      "dependencies": {
       "cors": "^2.8.5",
       "dotenv": "^16.0.3",
       "express": "^4.18.2",
