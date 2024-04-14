@@ -37,7 +37,8 @@ Cypress.Commands.add('loginApi',(email, senha)=>{
         body: {
             email:email,
             senha: senha
-        }
+        },
+        failOnStatusCode: false
 
     }).then(response =>{
         expect(response.status).to.eq(200);
