@@ -58,4 +58,4 @@ jobs:
           else
             echo "Server is not running or responding with an error."
             exit 1
-          fi
+            fi
