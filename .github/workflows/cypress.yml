@@ -9,13 +9,15 @@ jobs:
   wait-for-services:
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for Server and Client
-        run: |
-          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)" == "200" ] && [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)" == "200" ]; do
-            echo "Waiting for services to be ready..."
-            sleep 1
-          done
-          echo "Services are ready."
+      - name: Checkout
+        uses: actions/checkout@v4
+    #   - name: Wait for Server and Client
+    #     run: |
+    #       until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)" == "200" ] && [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)" == "200" ]; do
+    #         echo "Waiting for services to be ready..."
+    #         sleep 1
+    #       done
+    #       echo "Services are ready."
 
   start-server:
     runs-on: ubuntu-latest
