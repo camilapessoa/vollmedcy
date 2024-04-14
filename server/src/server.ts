@@ -18,6 +18,7 @@ dotenv.config({ path: '.env' })
 
 const app = express()
 
+const PORT = 8080
 const corsOpts = {
   origin: '*',
 
@@ -61,7 +62,7 @@ rotaAuth(app)
 app.use(errorMiddleware)
 
 // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-app.listen(8080, () => { console.log(`server running on port ${8080}`) }
+app.listen(PORT, () => { console.log(`server running on port ${PORT}`) }
 )
 
 export default app
