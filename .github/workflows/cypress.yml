@@ -13,18 +13,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install Dependencies
+
+      - name: Install Dependencies - Server
         run: npm install
+        working-directory: server
+
+      - name: Install Dependencies - Web
+        run: npm install
+        working-directory: web
+
+      - name: Start Server
+        run: npm start
+        working-directory: server
+
+      - name: Start Web Client
+        run: npm start
+        working-directory: web
+
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          build: npm run build
-          start: npm run start
           install: true
-          working-directory: web
-          runTests: false
-      - name: Run Cypress Tests
-        uses: cypress-io/github-action@v6
-        with:
-          install: false
-          working-directory: .
