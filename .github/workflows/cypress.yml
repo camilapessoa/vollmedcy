@@ -45,7 +45,7 @@ jobs:
         run: sleep 180
         
   run-tests:
-    needs: [start-server, start-client]
+    
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
