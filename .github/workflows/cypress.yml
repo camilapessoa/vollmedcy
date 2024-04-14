@@ -13,37 +13,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Install Dependencies
         run: npm install
-
-      - name: Start Server BackEnd
-        run: |
-           cd server
-           npm install 
-           npm start &
-        env:
-          SERVER_PORT: 8080
-        
-
-      - name: Start Web App FrontEnd
-        run: |
-          cd web
-          npm install
-          npm start &
-
-      - name: Write the cypress.env.json file 📝
-          # use quotes around the secret, as its value
-          # is simply inserted as a string into the command
-        run: |
-          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
-
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
-
         with:
-          browser: chrome
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-              
+          build: npm run build
+          start: npm run start
+          install: true
+          working-directory: web
+          runTests: false
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          working-directory: .
