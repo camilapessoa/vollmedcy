@@ -1,35 +1,74 @@
 name: Cypress Tests
+
 on:
   push:
     branches:
       - testes-cy
 
 jobs:
-  cypress-run:
+  start-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies - Server
+        run: npm install
+        working-directory: server
+
+      - name: Show DB_ENV
+        run: |
+          echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
+          
+      - name: Start Server
+        run: |
+          npm start &
+          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)" == "200" ]; do
+            echo "Waiting for server to start..."
+            sleep 1
+          done
+          echo "Server is running successfully."
+        working-directory: server
+
+  start-web-client:
+    runs-on: ubuntu-latest
+    needs: start-server
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+            
+      - name: Install Dependencies - Web
+        run: npm install
+        working-directory: web
+            
+      - name: Start Web Client
+        run: |
+          npm start &
+          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)" == "200" ]; do
+            echo "Waiting for web client to start..."
+            sleep 1
+          done
+          echo "Web Client is running successfully."
+        working-directory: web
+
+  run-tests:
+    needs: [start-server, start-web-client]
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false 
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-        - name: Install Dependencies
-          run: npm install
-
-        - name: Run Cypress Tests
-          uses: cypress-io/github-action@v6
-          with:
-            build: npm run build
-            start: npm run start
-            install: true
-            working-directory: web
-            runTests: false
-
-        - name: Run Cypress Tests
-          uses: cypress-io/github-action@v6
-          with:
-            path: server
-            start: npm start
-            wait-on: 'http://localhost:3000' # Waits for above
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Wait for Services to be Ready
+        run: |
+          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)" == "200" ] && [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)" == "200" ]; do
+            echo "Waiting for services to be ready..."
+            sleep 1
+          done
+          echo "Services are ready."
+          
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          install: true
