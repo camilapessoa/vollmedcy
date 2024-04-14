@@ -1,4 +1,4 @@
 cypress/results/**
 cypress/videos/**
-web/**
-server/**
+web/
+server/
