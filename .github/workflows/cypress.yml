@@ -35,7 +35,7 @@ jobs:
           echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
           
       - name: Start Server
-        run: npm start
+        run: npm start &
         working-directory: server
 
   start-web-client:
@@ -50,7 +50,7 @@ jobs:
         working-directory: web
             
       - name: Start Web Client
-        run: npm start
+        run: npm start &
         working-directory: web
 
   run-tests:
