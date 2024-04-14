@@ -3,7 +3,7 @@ name: Cypress Tests
 on:
   push:
     branches:
-      - jdoesdevops-test
+      - actions
 
 jobs:
   cypress-run:
