@@ -16,7 +16,7 @@ jobs:
         
       - name: Install Dependencies - Server
         run: |
-          n 14.x
+          n 19
           npm install
         working-directory: server
           
