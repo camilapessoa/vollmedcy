@@ -16,6 +16,7 @@ jobs:
         
       - name: Install Dependencies - Server
         run: |
+          sudo chown -R $(whoami) /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
           n 19
           npm install
         working-directory: server
