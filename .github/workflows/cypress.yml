@@ -1,26 +1,35 @@
-name: With servers
-on: 
+name: Cypress Tests
+on:
   push:
     branches:
       - testes-cy
+
 jobs:
   cypress-run:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Checkout Server and Web
-        run: |
-          cd server
-          npm install
-          npm start &
-          cd ../web
-          npm install
-          npm start &
-      - name: Wait for servers to start
-        run: sleep 30s
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-       
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false 
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
 
-   
+        - name: Install Dependencies
+          run: npm install
+
+        - name: Run Cypress Tests
+          uses: cypress-io/github-action@v6
+          with:
+            build: npm run build
+            start: npm run start
+            install: true
+            working-directory: web
+            runTests: false
+
+        - name: Run Cypress Tests
+          uses: cypress-io/github-action@v6
+          with:
+            path: server
+            start: npm start
+            wait-on: 'http://localhost:3000' # Waits for above
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
