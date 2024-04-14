@@ -6,36 +6,44 @@ on:
       - actions
 
 jobs:
-  cypress-run:
+  start-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies - Server
+        run: npm install
+        working-directory: server
+
+      - name: Show DB_ENV
+        run: |
+          echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
+
+      - name: Start Server
+        run: npm start
+        working-directory: server
+
+  start-web-client:
+    needs: start-server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies - Web
+        run: npm install
+        working-directory: web
+
+      - name: Start Web Client
+        run: npm start
+        working-directory: web
+
+  run-tests:
+    needs: [start-server, start-web-client]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
-      - name: Install Dependencies - Server
-        run: |
-          sudo chown -R $(whoami) /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
-          n 19
-          npm install
-        working-directory: server
-          
-      - name: Show DB_ENV
-        run: |
-          echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env # Corrigi a criação do arquivo .env para o diretório correto
-
-      - name: Install Dependencies - Web
-        run: npm install
-        working-directory: web
-
-      - name: Start Server
-        run: npm start
-        working-directory: server
-
-      - name: Start Web Client
-        run: npm start
-        working-directory: web
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
