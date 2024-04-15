@@ -11,6 +11,13 @@ describe('testes em API', () => {
 
         })
 
+        it('get Servidor render',() =>{
+            cy.request('https://volserver.onrender.com/clinica').then((response) =>{
+                expect(response.status).to.eq(200)
+            })
+
+        })
+
 
         it('Cadastra clinica',()=>{
             const reqBody = 
@@ -46,12 +53,12 @@ describe('testes em API', () => {
                 "senha": "4321"
             }
 
-            const Headers = ['Content-Type', 'Authorization', 'Accept'
-        ]
+        //     const Headers = ['Content-Type', 'Authorization', 'Accept'
+        // ]
               cy.request({
                   method: 'POST',
-                  url: 'http://localhost:8080/auth/login',
-                  headers: Headers,
+                  url: 'https://volserver.onrender.com/auth/login',
+                //   headers: Headers,
                   body: reqBody,
             
             // failOnStatusCode: false
@@ -70,35 +77,7 @@ describe('testes em API', () => {
           
           })
           
-          it('loginApi', () => {
-            const reqBody = {
-              "email": "clinica@gmail.com",
-              "senha": "4321"
-            };
-          
-            const Headers = ['Content-Type', 'Authorization', 'Accept'];
-          
-            cy.intercept('POST', 'http://localhost:8080/auth/login', (req) => {
-            cy.visit('/login')
-              // Intercepta a solicitação e modifica-a, se necessário
-              req.headers = Headers; // Define os cabeçalhos da requisição
-              req.body = reqBody; // Define o corpo da requisição
-            }).as('loginRequest');
-          
-            // Executa a ação que dispara a requisição
-            // Por exemplo, clicar em um botão de login
-          
-            // Aguarda a interceptação e a resposta do servidor
-            cy.wait('@loginRequest').then(interception => {
-              const response = interception.response;
-          
-              expect(response.statusCode).to.eq(200);
-              expect(response.body.auth).to.be.true;
-              expect(response.body.rota).to.eq('/clinica');
-              expect(response.body.token).to.exist;
-            });
-          });
-
+         
 
         // it('GET via url front para teste em resposta da home', () => {
         //     cy.request('GET', '/', { email: "clinica@gmail.com", senha: "4321" 
