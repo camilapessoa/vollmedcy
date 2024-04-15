@@ -23,10 +23,20 @@ jobs:
         with:
           path: server
 
+      - name: Install Server
+        run: |
+          cd server
+          npm install &
+
       - name: Checkout Web
         uses: actions/checkout@v4
         with:
           path: web
+      
+      - name: Install Web
+        run: |
+          cd web
+          npm install
       
       - name: Configurar Variável de Ambiente
         run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
@@ -40,8 +50,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           start: |
-            npm run i:server
-            npm run i:web
             npm run start-server
             npm run start-web-client
 
