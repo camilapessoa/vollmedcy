@@ -18,7 +18,7 @@ describe('testes em API', () => {
                       email:'clinica@gmail.com',
                       senha: '4321'
                   },
-                  form: true,
+            timeout: 10000
             // failOnStatusCode: false
           
               }).then(response =>{
