@@ -22,12 +22,12 @@ jobs:
       - name: Checkout Server
         uses: actions/checkout@v4
         with:
-          path: /server
+          path: server
 
       - name: Checkout Web
         uses: actions/checkout@v4
         with:
-          path: /web
+          path: web
       
       - name: Configurar Variável de Ambiente
         run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
