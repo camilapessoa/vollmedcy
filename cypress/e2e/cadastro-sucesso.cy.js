@@ -1,6 +1,6 @@
 describe('Página de cadastro', () => {
     beforeEach(() => {
-        cy.visit(Cypress.env('baseUrl'));
+        cy.visit('/');
     })
 
     context('Verifica redirecionamento de página', ()=>{

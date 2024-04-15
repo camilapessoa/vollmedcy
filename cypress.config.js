@@ -18,6 +18,7 @@ module.exports = defineConfig({
       json: false,
       timestamp: "mmddyyyy_HHMMss"
     },
+    retries,
 
   },
 
