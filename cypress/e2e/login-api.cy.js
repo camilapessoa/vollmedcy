@@ -7,10 +7,10 @@ describe('testes em API', () => {
         it('loginApi',()=>{
               cy.request({
                   method: 'POST',
-                  url: 'http://localhost:3000/login',
+                  url: 'http://localhost:8080/auth/login',
                   body: {
-                      "email":"clinica@gmail.com",
-                      "senha": "4321"
+                      email:"clinica@gmail.com",
+                      senha: "4321"
                   }
           
               }).then(response =>{
@@ -18,7 +18,7 @@ describe('testes em API', () => {
                   expect(response.body.auth).to.be.true;
                   expect(response.body.rota).to.eq('/clinica');
                   expect(response.body.token).to.exist;
-                  cy.wrap(response.body.token).as('token');
+                //   cy.wrap(response.body.token).as('token');
             
               })
           
