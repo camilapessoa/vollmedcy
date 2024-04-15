@@ -4,6 +4,12 @@ describe('testes em API', () => {
         //     cy.loginApi(Cypress.env('email'), Cypress.env('senha'))
 
         // })
+        it('get Servidor',() =>{
+            cy.request('http://localhost:8080').then((response) =>{
+                expect(response.status).to.eq(200)
+            })
+
+        })
         it('loginApi',()=>{
               cy.request({
                   method: 'POST',
