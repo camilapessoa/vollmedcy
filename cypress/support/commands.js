@@ -32,8 +32,8 @@ Cypress.Commands.add('cadastraEspecialista', (nome, email, senha, especialidade,
 Cypress.Commands.add('loginApi',(email, senha)=>{
     cy.request({
         method: 'POST',
-        url: 'https://localhost:8080/auth/login',
-        // url: 'https://volserver.onrender.com/auth/login',
+        // url: 'https://localhost:8080/auth/login',
+        url: 'https://volserver.onrender.com/auth/login',
         body: {
             email:email,
             senha: senha
