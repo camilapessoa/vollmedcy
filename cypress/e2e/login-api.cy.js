@@ -69,6 +69,35 @@ describe('testes em API', () => {
               })
           
           })
+          
+          it('loginApi', () => {
+            const reqBody = {
+              "email": "clinica@gmail.com",
+              "senha": "4321"
+            };
+          
+            const Headers = ['Content-Type', 'Authorization', 'Accept'];
+          
+            cy.intercept('POST', 'http://localhost:8080/auth/login', (req) => {
+            cy.visit('/login')
+              // Intercepta a solicitação e modifica-a, se necessário
+              req.headers = Headers; // Define os cabeçalhos da requisição
+              req.body = reqBody; // Define o corpo da requisição
+            }).as('loginRequest');
+          
+            // Executa a ação que dispara a requisição
+            // Por exemplo, clicar em um botão de login
+          
+            // Aguarda a interceptação e a resposta do servidor
+            cy.wait('@loginRequest').then(interception => {
+              const response = interception.response;
+          
+              expect(response.statusCode).to.eq(200);
+              expect(response.body.auth).to.be.true;
+              expect(response.body.rota).to.eq('/clinica');
+              expect(response.body.token).to.exist;
+            });
+          });
 
 
         // it('GET via url front para teste em resposta da home', () => {
