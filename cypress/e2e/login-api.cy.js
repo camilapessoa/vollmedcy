@@ -5,7 +5,7 @@ describe('testes em API', () => {
 
         // })
         it('get Servidor',() =>{
-            cy.request('http://localhost:8080').then((response) =>{
+            cy.request('http://localhost:8080/clinica').then((response) =>{
                 expect(response.status).to.eq(200)
             })
 
