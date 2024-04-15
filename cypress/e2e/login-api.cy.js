@@ -11,14 +11,15 @@ describe('testes em API', () => {
 
         })
         it('loginApi',()=>{
+            const reqBody = {
+                "email": "clinica@gmail.com",
+                "senha": "4321"
+            }
               cy.request({
                   method: 'POST',
                   url: 'http://localhost:8080/auth/login',
-                  body: {
-                      email:'clinica@gmail.com',
-                      senha: '4321'
-                  },
-            timeout: 600000
+                  body: reqBody,
+            timeout: 600000,
             // failOnStatusCode: false
           
               }).then(response =>{
