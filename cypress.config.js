@@ -8,7 +8,7 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: 'http://127.0.0.1:3000/',
+    baseUrl: 'http://localhost:3000/',
     video: true,
     reporter: 'mochawesome',
     reporterOptions: {
@@ -21,8 +21,7 @@ module.exports = defineConfig({
 
   },
 
-  env:
-  {
+  env: {
     "email": "clinica@gmail.com",
     "senha": "4321",
     "api_login": "http://localhost:8080/auth/login",
