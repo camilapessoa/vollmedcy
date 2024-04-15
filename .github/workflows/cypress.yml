@@ -21,7 +21,7 @@ jobs:
         uses: cypress-io/github-action@v6
 
         with:
-          start: npm start 
+          start: npm run start-server, start-web-client
           wait-on: 'http://localhost:3000, http://localhost:8080'
       
 
