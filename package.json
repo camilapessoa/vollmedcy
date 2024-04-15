@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "i:server":"cd server && npm install &",
-    "i:web":"cd web && npm install &",
-    "start-server": "cd server && npm start &",
-    "start-web-client": "cd web && npm start &",
+    "start": "npm run start-both",
+    "start-both": "concurrently \"npm run start-server\" \"npm run start-web-client\"",
+    "i:server": "cd server && npm install &",
+    "i:web": "cd web && npm install &",
+    "start-server": "cd server && npm start",
+    "start-web-client": "cd web && npm start",
     "cy:run": "cypress run",
     "cy:open:tablet": "cypress open --config viewportWidth=768 viewportHeight=1024",
     "lint": "eslint cypress/**/*.js && eslint cypress.config.js",
@@ -25,6 +27,7 @@
     "mochawesome": "^7.1.3"
   },
   "dependencies": {
+    "concurrently": "^8.2.2",
     "cypress-plugin-api": "^2.11.1"
   }
 }

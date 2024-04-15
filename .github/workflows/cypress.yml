@@ -49,9 +49,7 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          start: |
-            npm run start-server
-            npm run start-web-client
+          start: npm start
 
           wait-on: 'http://localhost:3000, http://localhost:8080'
     env:
