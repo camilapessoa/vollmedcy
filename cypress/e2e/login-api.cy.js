@@ -7,7 +7,7 @@ describe('testes em API', () => {
         it('loginApi',()=>{
               cy.request({
                   method: 'POST',
-                  url: 'http://localhost:8080/auth/login',
+                  url: 'http://localhost:3000/auth/login',
                   body: {
                       email:'clinica@gmail.com',
                       senha: '4321'
