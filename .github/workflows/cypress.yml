@@ -31,8 +31,8 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd ../server && npm install &
-          cd ../web && npm install
+          cd server && npm install &
+          cd web && npm install &
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
