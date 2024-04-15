@@ -23,12 +23,12 @@ jobs:
           npm install
           npm start &
           sleep 180
-          - name: Run Cypress Tests
-          uses: cypress-io/github-action@v6
-          with:
-            spec: cypress/e2e/login-api.cy.js
-          with: 
-            wait-on: 'http://localhost:8080'
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          spec: cypress/e2e/login-api.cy.js
+          wait-on: 'http://localhost:8080'
 
     env:
         browser: chrome
