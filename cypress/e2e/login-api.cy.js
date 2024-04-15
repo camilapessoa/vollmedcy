@@ -45,9 +45,13 @@ describe('testes em API', () => {
                 "email": "clinica@gmail.com",
                 "senha": "4321"
             }
+
+            const Headers = ['Content-Type', 'Authorization', 'Accept'
+        ]
               cy.request({
                   method: 'POST',
-                  url: '[::1]:8080/auth/login',
+                  url: 'http://localhost:8080/auth/login',
+                  headers: Headers,
                   body: reqBody,
             
             // failOnStatusCode: false
