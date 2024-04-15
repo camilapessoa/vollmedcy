@@ -17,7 +17,8 @@ describe('testes em API', () => {
                   body: {
                       email:"clinica@gmail.com",
                       senha: "4321"
-                  }
+                  },
+            failOnStatusCode: false
           
               }).then(response =>{
                   expect(response.status).to.eq(200);
