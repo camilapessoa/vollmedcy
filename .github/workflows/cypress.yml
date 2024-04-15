@@ -11,21 +11,34 @@ jobs:
     strategy:
       fail-fast: false
     steps:
-      - name: Checkout
+      - name: Checkout Geral
         uses: actions/checkout@v4
+        with:
+          path: geral
+
+      - name: Checkout Server
+        uses: actions/checkout@v4
+        with:
+          path: server
+
+      - name: Checkout Web
+        uses: actions/checkout@v4
+        with:
+          path: web
+      
+      - name: Configurar Variável de Ambiente
+        run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          cd ../server && npm install &
+          cd ../web && npm install
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
-
         with:
-          start: npm run start-server, start-web-client
+          start: npm run start-server, npm run start-web-client
           wait-on: 'http://localhost:3000, http://localhost:8080'
-      
-
-
     env:
       browser: chrome
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
