@@ -17,21 +17,13 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Start Server BackEnd
-        run: |
-          cd server
-          npm install
-          npm start &
-          sleep 180
-      - name: Start Web App FrontEnd
-        run: |
-          cd web
-          npm install
-          npm start &
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
-        with: 
+
+        with:
+          start: npm start 
           wait-on: 'http://localhost:3000, http://localhost:8080'
+      
 
 
     env:
