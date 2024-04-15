@@ -26,7 +26,9 @@ jobs:
       - name: Install Server
         run: |
           cd server
-          npm install &
+          npm install
+          npm start &
+        working-directory: server
 
       - name: Checkout Web
         uses: actions/checkout@v4
@@ -37,6 +39,8 @@ jobs:
         run: |
           cd web
           npm install
+          npm start &
+        working-directory: web
       
       - name: Configurar Variável de Ambiente
         run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
@@ -50,7 +54,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           start: npm start
-          wait-on: 'npx wait-on --timeout 60000 http://localhost:3000 ,http://localhost:8080' 
+          wait-on: 'http://localhost:3000 ,http://localhost:8080' 
           # wait-on: 'http://localhost:3000, http://localhost:8080'
     env:
       browser: chrome
