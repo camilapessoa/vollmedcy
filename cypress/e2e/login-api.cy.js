@@ -15,10 +15,11 @@ describe('testes em API', () => {
                   method: 'POST',
                   url: 'http://localhost:8080/auth/login',
                   body: {
-                      email:"clinica@gmail.com",
-                      senha: "4321"
+                      email:'clinica@gmail.com',
+                      senha: '4321'
                   },
-            failOnStatusCode: false
+                  form: true,
+            // failOnStatusCode: false
           
               }).then(response =>{
                   expect(response.status).to.eq(200);
