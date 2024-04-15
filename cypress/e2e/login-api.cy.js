@@ -52,7 +52,10 @@ describe('testes em API', () => {
             
             // failOnStatusCode: false
           
-              }).then(response =>{
+              }
+          
+        
+        ).then(response =>{
                   expect(response.status).to.eq(200);
                   expect(response.body.auth).to.be.true;
                   expect(response.body.rota).to.eq('/clinica');
