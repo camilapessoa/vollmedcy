@@ -15,11 +15,11 @@ describe('testes em API', () => {
         it('Cadastra clinica',()=>{
             const reqBody = 
                 {
-                    "planoDeSaudeAceitos":[1,2,3,4],
-                    "email":"clinica@gmail.com",
-                    "nome":"Clinica de Todos",
-                    "senha":"4321",
-                    "endereco": {
+                    planoDeSaudeAceitos:[1,2,3,4],
+                    email:"clinica@gmail.com",
+                    nome:"Clinica de Todos",
+                    senha:"4321",
+                    endereco: {
                         "cep": 76541321,
                         "rua": "Rua 45",
                         "numero": 2,
@@ -31,7 +31,7 @@ describe('testes em API', () => {
                   method: 'POST',
                   url: 'http://localhost:8080/clinica',
                   body: reqBody,
-            // failOnStatusCode: false
+                // failOnStatusCode: false
           
               }).then(response =>{
                   expect(response.status).to.eq(200)
@@ -47,9 +47,9 @@ describe('testes em API', () => {
             }
               cy.request({
                   method: 'POST',
-                  url: 'http://localhost:8080/auth/login',
+                  url: '[::1]:8080/auth/login',
                   body: reqBody,
-            timeout: 600000,
+            
             // failOnStatusCode: false
           
               }).then(response =>{
