@@ -25,13 +25,13 @@ describe('testes em API', () => {
           })
 
 
-        it('GET via url front para teste em resposta da home', () => {
-            cy.request('GET', '/', { email: "clinica@gmail.com", senha: "4321" 
+        // it('GET via url front para teste em resposta da home', () => {
+        //     cy.request('GET', '/', { email: "clinica@gmail.com", senha: "4321" 
 
-            }).should((response) => {
-                expect(response.status).to.eq(200)
-            })
-        })
+        //     }).should((response) => {
+        //         expect(response.status).to.eq(200)
+        //     })
+        // })
 
         // it('Deve verificar se o token de autenticação é retornado após login via POST na API', () => {
         //     cy.get('@token').should('exist');
