@@ -1,7 +1,7 @@
 Cypress.Commands.add('login', (email, senha) => {
     cy.session([email, senha], () => {
 
-        cy.visit(Cypress.env('baseUrl')+'/login')
+        cy.visit('/login')
         cy.get('[data-test="inputLoginEmail"]').type(email)
         cy.get('[data-test="inputLoginSenha"]').type(senha, { log: false })
         cy.get('[data-test="botaoTeste"]').should('be.visible').click()
@@ -12,7 +12,7 @@ Cypress.Commands.add('login', (email, senha) => {
 })
 
 Cypress.Commands.add('cadastraEspecialista', (nome, email, senha, especialidade, crm, imagem, cep, rua, numero, complemento, estado) => {
-    cy.visit(Cypress.env('baseUrl')+'/dashboard')
+    cy.visit('/dashboard')
     cy.contains('Cadastrar especialista').should('be.visible').click()
     cy.get('[data-test="inputEspecialistaNome"]').type(nome)
     cy.get('[data-test="inputEspecialistaEmail"]').type(email)
