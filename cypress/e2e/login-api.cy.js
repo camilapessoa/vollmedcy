@@ -38,28 +38,28 @@ describe('testes em API', () => {
         // })
     });
 
-    context('Validações em respostas da API', ()=>{
-        // beforeEach(() =>{
-        //     cy.loginApi(Cypress.env('email'), Cypress.env('senha'))
-        // })
+    // context('Validações em respostas da API', ()=>{
+    //     // beforeEach(() =>{
+    //     //     cy.loginApi(Cypress.env('email'), Cypress.env('senha'))
+    //     // })
 
-        it('Requisição incorreta em criação de especialista', ()=>{
-            cy.request({
-                method: 'POST',
-                url: Cypress.env('api_clinica'),
-                body: {
-                    nome: 'Camila',
-                    email: 'camila123@exemplo',
-                },
-            failOnStatusCode: false
+    //     it('Requisição incorreta em criação de especialista', ()=>{
+    //         cy.request({
+    //             method: 'POST',
+    //             url: Cypress.env('api_clinica'),
+    //             body: {
+    //                 nome: 'Camila',
+    //                 email: 'camila123@exemplo',
+    //             },
+    //         failOnStatusCode: false
             
-            }).then((response)=>{
-                expect(response.status).to.eq(500)
-                expect(response.body).to.have.property('message')
-            })
+    //         }).then((response)=>{
+    //             expect(response.status).to.eq(500)
+    //             expect(response.body).to.have.property('message')
+    //         })
 
-        })
+    //     })
 
-    })
+    // })
 
 })
