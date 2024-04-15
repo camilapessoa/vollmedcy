@@ -7,10 +7,10 @@ describe('testes em API', () => {
         it('loginApi',()=>{
               cy.request({
                   method: 'POST',
-                  url: 'http://localhost:3000/auth/login',
+                  url: 'http://localhost:3000/login',
                   body: {
-                      "email":'clinica@gmail.com',
-                      "senha": '4321'
+                      "email":"clinica@gmail.com",
+                      "senha": "4321"
                   }
           
               }).then(response =>{
