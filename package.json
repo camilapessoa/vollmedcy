@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-server": "cd server && npm start",
-    "start-web-client": "cd web && npm start",
+    "start-server": "cd cd /home/runner/work/vollmedcy/vollmedcy/server && npm start",
+    "start-web-client": "cd cd /home/runner/work/vollmedcy/vollmedcy/web && npm start",
     "cy:run": "cypress run",
     "cy:open:tablet": "cypress open --config viewportWidth=768 viewportHeight=1024",
     "lint": "eslint cypress/**/*.js && eslint cypress.config.js",
