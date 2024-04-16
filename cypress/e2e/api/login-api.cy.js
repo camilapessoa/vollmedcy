@@ -20,7 +20,7 @@ describe('testes em API', () => {
         })
 
 
-        it('Cadastra clinica', () => {
+        it('Cadastra clinica Render', () => {
             const reqBody =
             {
                 planoDeSaudeAceitos: [1, 2, 3, 4],
@@ -49,7 +49,7 @@ describe('testes em API', () => {
 
         })
 
-        it('loginApi', () => {
+        it('loginApi Render', () => {
             const reqBody = {
                 "email": "clinica@gmail.com",
                 "senha": "4321"

@@ -37,7 +37,8 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          spec: cypress/e2e/login-api.cy.js
+          config: pageLoadTimeout=100000,baseUrl=http://localhost:8080
+          spec: cypress/e2e/api/login-api.cy.js
           wait-on: 'http://localhost:8080'
 
     env:
