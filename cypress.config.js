@@ -9,7 +9,8 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
     baseUrl: 'http://localhost:3000/',
-    video: true,
+    video: false,
+    // video: true,
     reporter: 'mochawesome',
     reporterOptions: {
       reportDir: 'cypress/results',
@@ -18,7 +19,7 @@ module.exports = defineConfig({
       json: false,
       timestamp: "mmddyyyy_HHMMss"
     },
-    defaultCommandTimeout: 900000
+    defaultCommandTimeout: 600000
 
   },
 
