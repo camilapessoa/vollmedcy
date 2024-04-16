@@ -1,0 +1,35 @@
+name: Cypress Tests
+
+on:
+  push:
+    branches:
+      - testes-cy
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start Server BackEnd
+        run: |
+          cd server
+          npm install
+          npm start &
+        working-directory: server
+
+      - name: Configurar Variável de Ambiente
+        run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          spec: cypress/e2e/login-api.cy.js
+          wait-on: 'http://localhost:8080'
+
+    env:
+        browser: chrome
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
