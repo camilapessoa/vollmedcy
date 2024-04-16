@@ -1,5 +1,5 @@
 {
-   "name": "API-Voll_Med",
+   "name": "api-voll_med",
    "version": "1.0.0",
    "description": "",
    "main": "index.js",
@@ -11,17 +11,6 @@
       "start": "tsc-watch --onSuccess \"node ./build/server.js\"",
       "compile": "npx tsc"
    },
-   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/bugan/API-Voll.Med.git"
-   },
-   "keywords": [],
-   "author": "",
-   "license": "ISC",
-   "bugs": {
-      "url": "https://github.com/bugan/API-Voll.Med/issues"
-   },
-   "homepage": "https://github.com/bugan/API-Voll.Med#readme",
    "dependencies": {
       "cors": "^2.8.5",
       "dotenv": "^16.0.3",
@@ -43,6 +32,7 @@
       "@types/supertest": "^2.0.12",
       "@typescript-eslint/eslint-plugin": "^5.50.0",
       "babel-jest": "^29.4.1",
+      "concurrently": "^8.2.2",
       "eslint": "^8.33.0",
       "eslint-config-standard-with-typescript": "^33.0.0",
       "eslint-import-resolver-typescript": "^3.5.3",

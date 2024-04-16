@@ -7,7 +7,7 @@ describe('testes em API', () => {
         it('GET via url front para teste em resposta da home', () => {
             cy.request('GET', '/', { email: "clinica@gmail.com", senha: 4321 
 
-            }).should((response) => {
+            }).then((response) => {
                 expect(response.status).to.eq(200)
             })
         })

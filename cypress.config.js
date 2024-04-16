@@ -8,8 +8,10 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    // projectId: 'x3bmp5',
     baseUrl: 'http://localhost:3000/',
-    video: true,
+    video: false,
+    // video: true,
     reporter: 'mochawesome',
     reporterOptions: {
       reportDir: 'cypress/results',
@@ -18,17 +20,8 @@ module.exports = defineConfig({
       json: false,
       timestamp: "mmddyyyy_HHMMss"
     },
+    // defaultCommandTimeout: 600000
 
   },
-
-  env:
-  {
-    "email": "clinica@gmail.com",
-    "senha": "4321",
-    "api_login": "http://localhost:8080/auth/login",
-    "api_clinica": "http://localhost:8080/clinica",
-    "api_especialista": "http://localhost:8080/especialista",
-    "requestMode": true
-  }
 
 });

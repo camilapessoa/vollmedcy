@@ -18,6 +18,7 @@ dotenv.config({ path: '.env' })
 
 const app = express()
 
+const PORT = 8080
 const corsOpts = {
   origin: '*',
 
@@ -46,6 +47,15 @@ AppDataSource.initialize()
     console.error(error)
   })
 
+// Rota inicial de GET
+app.get('/', (req, res) => {
+  res.status(200).send('Vollmed Servidor está rodando!')
+})
+
+app.get('/favicon.ico', (req, res) => {
+  res.status(200).send(`<h1>favicon</h1>`)
+})
+
 rotaPaciente(app)
 rotaEspecialista(app)
 rotaAvaliacoes(app)
@@ -56,7 +66,7 @@ rotaAuth(app)
 app.use(errorMiddleware)
 
 // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-app.listen(8080, () => { console.log(`server running on port ${8080}`) }
+app.listen(PORT, () => { console.log(`server running on port ${PORT}`) }
 )
 
 export default app
