@@ -9,7 +9,7 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
     projectId: 'x3bmp5',
-    baseUrl: 'http://localhost:3000/',
+    baseUrl: 'https://vollmedclient.vercel.app/',
     video: false,
     // video: true,
     reporter: 'mochawesome',
