@@ -39,8 +39,9 @@ jobs:
           cd web
           npm install
           npm start &
-      - name : Criar variável de ambiente Cypress
-        run: echo "CYPRESS_ENV_CI={{ secrets.CYPRESS_ENV_CI }}" > /cypress.env.json
+      # - name : Criar variável de ambiente Cypress
+      #   run: echo "CYPRESS_ENV_CI={{ secrets.CYPRESS_ENV_CI }}" > /cypress.env.json
+
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
