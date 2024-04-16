@@ -11,12 +11,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [1, 2] # Uses 2 parallel instances
+        containers: [1, 2, 3] # Uses 2 parallel instances
         include:
           - container: 1
-            specs: "cypress/e2e/cadastro-sucesso.cy.js,cypress/e2e/login-clinica.cy.js"
+            specs: "cypress/e2e/cadastro-sucesso.cy.js"
           - container: 2
             specs: "cypress/e2e/dashboard.cy.js"
+          - container: 3
+            specs: "cypress/e2e/login-clinica.cy.js"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
