@@ -42,7 +42,7 @@ describe('testes em API', () => {
                 body: reqBody,
                 // failOnStatusCode: false
 
-            }).then(response => {
+            }).should(response => {
                 expect(response.status).to.eq(200)
                 expect(response.body.id).to.exist;
             })
@@ -68,7 +68,7 @@ describe('testes em API', () => {
             }
 
 
-            ).then(response => {
+            ).should(response => {
                 expect(response.status).to.eq(200);
                 expect(response.body.auth).to.be.true;
                 expect(response.body.rota).to.eq('/clinica');
@@ -110,7 +110,7 @@ describe('testes em API', () => {
                 },
                 failOnStatusCode: false
 
-            }).then((response) => {
+            }).should((response) => {
                 expect(response.status).to.eq(500)
                 expect(response.body).to.have.property('message')
             })
