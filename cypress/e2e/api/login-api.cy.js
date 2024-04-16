@@ -42,7 +42,7 @@ describe('testes em API', () => {
                 body: reqBody,
                 // failOnStatusCode: false
 
-            }).should(response => {
+            }).then(response => {
                 expect(response.status).to.eq(200)
                 expect(response.body.id).to.exist;
             })
@@ -68,7 +68,7 @@ describe('testes em API', () => {
             }
 
 
-            ).should(response => {
+            ).then(response => {
                 expect(response.status).to.eq(200);
                 expect(response.body.auth).to.be.true;
                 expect(response.body.rota).to.eq('/clinica');
@@ -85,7 +85,7 @@ describe('testes em API', () => {
             cy.request('GET', '/', {
                 email: 'clinica@gmail.com', senha: '4321'
 
-            }).should((response) => {
+            }).then((response) => {
                 expect(response.status).to.eq(200)
             })
         })
@@ -110,7 +110,7 @@ describe('testes em API', () => {
                 },
                 failOnStatusCode: false
 
-            }).should((response) => {
+            }).then((response) => {
                 expect(response.status).to.eq(500)
                 expect(response.body).to.have.property('message')
             })
