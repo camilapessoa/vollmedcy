@@ -47,4 +47,7 @@ Cypress.Commands.add('loginApi',(email, senha)=>{
   
     })
 
+}, {
+    retries: 10, // número de tentativas antes de falhar
+    delay: 10000 
 })
