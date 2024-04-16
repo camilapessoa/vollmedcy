@@ -14,6 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Checkout
+        uses: actions/checkout@v4
+        with: 
+          path: server
+
       - name: Start Server BackEnd
         run: |
           cd server
