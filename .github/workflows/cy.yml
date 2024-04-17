@@ -47,4 +47,4 @@ jobs:
               cypress/e2e/cadastro-sucesso.cy.js
               cypress/e2e/login-clinica.cy.js
               cypress/e2e/dashboard.cy.js
-          wait-on: 'http://localhost:3000 , http://localhost:8080' 
+          wait-on: 'http://localhost:3000          #   , http://localhost:8080' 
