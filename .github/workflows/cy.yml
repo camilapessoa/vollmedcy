@@ -31,8 +31,8 @@ jobs:
           echo "Server is running successfully."
         working-directory: server
     
-      - name: Configurar Variável de Ambiente
-        run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
+    #   - name: Configurar Variável de Ambiente
+    #     run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
         
       - name: Start Web App FrontEnd
         run: |
