@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run start-both",
     "cy:run": "cypress run",
     "cy:open:tablet": "cypress open --config viewportWidth=768 viewportHeight=1024",
     "lint": "eslint cypress/**/*.js && eslint cypress.config.js",
