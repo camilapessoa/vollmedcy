@@ -14,48 +14,37 @@ jobs:
       - name: Checkout Geral
         uses: actions/checkout@v4
         
-      - name: Install
-        run: npm install
-       
+      - name: Install Global Dependencies
+        run: npm install -g wait-on
+
       - name: Checkout Server
         uses: actions/checkout@v4
         with:
           path: server
-          
+
       - name: Configurar Variável de Ambiente
         run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
-        
-      - name: Install Server
-        run: |
-          npm install
-        working-directory: server
 
-      - name: Start Server
+      - name: Install and Start Server
         run: |
+          cd server
+          npm install
           npm start &
-        working-directory: server
-      
+
       - name: Checkout Web
         uses: actions/checkout@v4
         with:
           path: web
-      
-      - name: Install Web
+
+      - name: Install and Start Web
         run: |
+          cd web
           npm install
-        working-directory: web
-
-      - name: Start Web
-        run: |
           npm start &
-        working-directory: web
-
-      - name: Install wait-on
-        run: npm install -g wait-on
 
       - name: Wait for servers to be ready
         run: wait-on http://localhost:8080
-          
+
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
