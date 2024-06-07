@@ -32,12 +32,12 @@ Cypress.Commands.add('cadastraEspecialista', (nome, email, senha, especialidade,
 Cypress.Commands.add('loginApi',(email, senha)=>{
     cy.request({
         method: 'POST',
-        url: Cypress.env('api_login'),
+        url: Cypress.env('http://localhost:8080/auth/login'),
         body: {
             email:email,
             senha: senha
         }
-
+//api_login
     }).then(response =>{
         expect(response.status).to.eq(200);
         expect(response.body.auth).to.be.true;
