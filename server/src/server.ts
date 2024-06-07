@@ -16,7 +16,7 @@ import errorMiddleware from './error/errorMiddleware.js'
 
 dotenv.config({ path: '.env' })
 
-const PORT = 'http://localhost:8080'
+const PORT = 8080
 
 const app = express()
 
