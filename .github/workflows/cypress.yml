@@ -15,7 +15,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with: 
-          path: server      
+          path: server
+      - name: Configurar Variável de Ambiente
+        run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
       - name: Start Server BackEnd
         run: |
           cd server
@@ -27,9 +29,7 @@ jobs:
           done
           echo "Server is running successfully."
         working-directory: server
-
-      - name: Configurar Variável de Ambiente
-        run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
+     
         
       - name: Start Web App FrontEnd
         run: |
