@@ -1,55 +1,45 @@
 name: Cypress Tests
-
 on:
   push:
     branches:
       - testes2
-
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+     
     steps:
-      - name: Checkout Geral
+      - name: Checkout
+        uses: actions/checkout@v4      
+      - name: Checkout
         uses: actions/checkout@v4
-        
-      - name: Checkout Server
-        uses: actions/checkout@v4
-        with:
-          path: server
-
-      - name: Configurar Variável de Ambiente
-        run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
-
-      - name: Install and Start Server
+        with: 
+          path: server      
+      - name: Start Server BackEnd
         run: |
           cd server
           npm install
           npm start &
+          until [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)" == "200" ]; do
+            echo "Waiting for server to start..."
+            sleep 1
+          done
+          echo "Server is running successfully."
+        working-directory: server
 
-      - name: Checkout Web
-        uses: actions/checkout@v4
-        with:
-          path: web
-
-      - name: Install and Start Web
+      - name: Configurar Variável de Ambiente
+        run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
+        
+      - name: Start Web App FrontEnd
         run: |
           cd web
           npm install
-          npm start &
-
-      - name: Wait for servers to be ready
-        run: wait-on http://localhost:8080
-        
-      - name: Checkout
-        uses: actions/checkout@v4
-
+          npm start &        
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          install: true
-          
+           wait-on: 'http://localhost:3000,http://localhost:8080'   
+     
         env:
-          browser: chrome
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
