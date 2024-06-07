@@ -22,7 +22,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: server
-
+          
+      - name: Configurar Variável de Ambiente
+        run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
       - name: Install Server
         run: |
           cd server
@@ -42,8 +44,7 @@ jobs:
           npm start &
         working-directory: web
       
-      - name: Configurar Variável de Ambiente
-        run: echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env
+      
 
       # - name: Install Dependencies
       #   run: |
