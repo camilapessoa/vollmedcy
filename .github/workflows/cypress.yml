@@ -28,9 +28,13 @@ jobs:
       - name: Install Server
         run: |
           npm install
-          npm start &
         working-directory: server
 
+      - name: Start Server
+        run: |
+          npm start &
+        working-directory: server
+      
       - name: Checkout Web
         uses: actions/checkout@v4
         with:
@@ -39,13 +43,23 @@ jobs:
       - name: Install Web
         run: |
           npm install
+        working-directory: web
+
+      - name: Start Web
+        run: |
           npm start &
         working-directory: web
 
+      - name: Install wait-on
+        run: npm install -g wait-on
+
+      - name: Wait for servers to be ready
+        run: wait-on http://localhost:8080
+          
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          wait-on: 'npx wait-on --timeout 90000 http://localhost:8080'
+          wait-on: 'http://localhost:8080'
         env:
           browser: chrome
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
