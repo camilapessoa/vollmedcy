@@ -24,12 +24,14 @@ jobs:
           cd server
           echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env &
       
+      - name: Set Node.js Version for Server
+        run: echo "16" > server/.node-version
+        if: steps.CheckoutServer.outputs.path == 'server'  # Certifica-se de que esta etapa seja executada apenas quando o checkout do servidor for feito
+
       - name: Start Server BackEnd
         run: |
           cd server
           npm install
-          nvm install 16  # Instalar o Node.js versão 16 apenas para o servidor
-          nvm use 16      # Usar o Node.js versão 16 para este script
           npm start > web.log 2>&1 &
           until ! grep -q "server running on port 8080" server/server.log; do
             echo "Waiting for server to start..."
