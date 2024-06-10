@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - testes2
+
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
@@ -11,19 +12,24 @@ jobs:
      
     steps:
       - name: Checkout
-        uses: actions/checkout@v4      
-      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Checkout Server
         uses: actions/checkout@v4
         with: 
           path: server
+
       - name: Configurar Variável de Ambiente
         run: |
           cd server
           echo "DB_ENV=${{ secrets.DB_ENV }}" > server/.env &
+      
       - name: Start Server BackEnd
         run: |
           cd server
           npm install
+          nvm install 16  # Instalar o Node.js versão 16 apenas para o servidor
+          nvm use 16      # Usar o Node.js versão 16 para este script
           npm start > web.log 2>&1 &
           until ! grep -q "server running on port 8080" server/server.log; do
             echo "Waiting for server to start..."
@@ -31,17 +37,16 @@ jobs:
           done
           echo "Server is running successfully."
         working-directory: server
-     
         
       - name: Start Web App FrontEnd
         run: |
           cd web
           npm install
-          npm start &        
+          npm start &
+
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-           wait-on: 'http://localhost:3000,http://localhost:8080'   
-     
+          wait-on: 'http://localhost:3000,http://localhost:8080'
         env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
